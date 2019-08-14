@@ -1,0 +1,32 @@
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="order_tab_info">
+            <action method="setTemplate">
+                <template>franceexpress/sales/order/view/tab/info.phtml</template>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+    
+    <sales_order_grid_update_handle>
+        <reference name="sales_order.grid">
+            <action method="addColumnAfter">
+                <columnId>shipping_description</columnId>
+                <arguments>
+                    <header>Shipping Method</header>
+                    <index>shipping_description</index>
+                    <filter_index>shipping_description</filter_index>
+                    <type>text</type>
+                </arguments>
+                <after>shipping_name</after>
+            </action>
+        </reference>
+    </sales_order_grid_update_handle>
+    <adminhtml_sales_order_grid>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_grid>
+    <adminhtml_sales_order_index>
+        <!-- apply layout handle defined above -->
+        <update handle="sales_order_grid_update_handle" />
+    </adminhtml_sales_order_index>
+</layout>

@@ -1,0 +1,15 @@
+.geodis{ background-color: #FFF; border: 1px solid #999; width: 100%; margin: 10px 0; }
+.geodis-label{ background-color: #fff !important;color: #3200e6 !important;display:inline-block; font-family: arial;font-size: 13px;font-weight: bold;min-width: 0 !important;padding: 0 !important;width: 145px !important;line-height: 31px;}
+.france-express-col-1{width: 18%;position: relative; display: inline-block; vertical-align: middle; padding: 0 10px 0 5px!important}
+.france-express-col-2{width:81%; display: inline-block; vertical-align: middle; }
+.geodis-input{ font-size: 13.5px !important;height: 25px !important;margin-bottom: 4px;width: 241px !important;}
+.france-express .geodis-label{color: #00597a !important;background-color: #fff !important;}
+.geodis-heading{  font-family: arial;font-size: 12px;margin-bottom: 5px; }
+.input-box .validation-advice{display: block !important;opacity: 1 !important;}
+.france-express-col-1 img{max-width: 100%; height: auto; }
+.france-express h4{ background: #00597A !important; font-size: 14px; padding: 5px 10px; color: #FFF; margin: 0px; text-transform: none !important;font-family: arial;font-weight: bold;}
+.geodis-info-content{display: block; padding: 5px;}
+.sp-methods label div{font-weight: 300;}
+.advice-required-entry {color: #df280a;font-size: 13px;margin-bottom: 5px;margin-left: 146px;margin-top: 5px;}
+#checkout-step-shipping_method #checkout-shipping-method-load dd ul li label{font-family: arial !important;font-size: 12px !important;font-weight: bold !important;width: 100% !important;}
+.sp-methods .price {float: right !important;}

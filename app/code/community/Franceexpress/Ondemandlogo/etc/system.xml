@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <sections>
+        <carriers>
+            <groups>
+                <franceexpress_methods translate="label">
+                    <label>FRANCE EXPRESS ON DEMAND LOGO</label>
+                    <sort_order>1000</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <comment><![CDATA[Ci dessous la liste des <strong>régles de gestion</strong> à respecter pour <em>configurer les methodes FRANCE EXPRESS</em>.
+                    <br /><br />Pays d'expédition de la méthode 1 (origin) : <span class="notice">France, Monaco</span>
+                    <br />Pays d'expédition de la méthode 2 (origin) : <span class="notice">France, Monaco, Belgique</span>
+                    <br /><br />Pays de destination de la méthode 1 : <span class="notice">France, Monaco</span>
+                    <br />Pays de destination de la méthode 2 : <span class="notice">France, Monaco, Belgique, Luxembourg</span>
+                    <br /><br />Poids Max de la commande : <span class="notice">1 tonne</span>
+                     ]]>
+                    </comment>
+                    <fields>
+                        <heading_method_1 translate="label">
+                            <label>Mode de livraison 1 : FRANCE EXPRESS ON DEMAND premium</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading_method_1>
+                        <method_1_active translate="label">
+                            <label>Activé</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </method_1_active>
+                        <method_1_description translate="label">
+                            <label>Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </method_1_description>
+                        <method_1_price translate="label">
+                            <label>Prix</label>
+                            <comment>Vous devez ajouter un prix pour que le mode de livraison soit affiché</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-zero-or-greater</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </method_1_price>
+                        
+                        
+                        <heading_method_2 translate="label">
+                            <label>Mode de livraison 2 : FRANCE EXPRESS ON DEMAND live</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </heading_method_2>
+                        <method_2_active translate="label">
+                            <label>Activé</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </method_2_active>
+                        <method_2_description translate="label">
+                            <label>Description</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </method_2_description>
+                        <method_2_price translate="label">
+                            <label>Prix</label>
+                            <comment>Vous devez ajouter un prix pour que le mode de livraison soit affiché</comment>
+                            <frontend_type>text</frontend_type>
+                            <validate>required-entry validate-zero-or-greater</validate>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </method_2_price>
+                    </fields>
+                </franceexpress_methods>
+                
+                
+            </groups>
+        </carriers>
+    </sections>
+</config>
+
+

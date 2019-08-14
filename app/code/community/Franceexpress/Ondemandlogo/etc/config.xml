@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Franceexpress_Ondemandlogo>
+            <version>0.1.0</version>
+        </Franceexpress_Ondemandlogo>
+    </modules>
+    <adminhtml>
+        <layout>
+            <updates>
+                <ondemandlogo>
+                    <file>franceexpress_ondemandlogo.xml</file>
+                </ondemandlogo>
+            </updates>
+        </layout>
+        <events>
+            <sales_order_grid_collection_load_before>
+                <observers>
+                    <franceexpress_ondemandlogo>
+                        <model>Franceexpress_Ondemandlogo_Model_Observer</model>
+                        <method>salesOrderGridCollectionLoadBefore</method>
+                    </franceexpress_ondemandlogo>
+                </observers>
+            </sales_order_grid_collection_load_before>
+        </events>
+        <translate>
+            <modules>
+                <franceexpress_ondemandlogo>
+                    <files>
+                        <default>Franceexpress_Ondemandlogo.csv</default>
+                    </files>
+                </franceexpress_ondemandlogo>
+            </modules>
+        </translate>
+    </adminhtml>
+    
+    <global>
+        <helpers>
+            <franceexpress_ondemandlogo>
+                <class>Franceexpress_Ondemandlogo_Helper</class>
+            </franceexpress_ondemandlogo>
+        </helpers>
+        <blocks>
+            <franceexpress_ondemandlogo>
+                <class>Franceexpress_Ondemandlogo_Block</class>
+            </franceexpress_ondemandlogo>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_view_tab_info>Franceexpress_Ondemandlogo_Block_Sales_Order_View_Tab_Info</sales_order_view_tab_info>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+        <models>
+            <franceexpress_ondemandlogo>
+                <class>Franceexpress_Ondemandlogo_Model</class>
+                <resourceModel>franceexpress_ondemandlogo_resource</resourceModel>
+            </franceexpress_ondemandlogo>
+            <franceexpress_ondemandlogo_resource>
+                <class>Franceexpress_Ondemandlogo_Model_Resource</class>
+                <entities>
+                    <frshippment>
+                        <table>franceexpress_ondemandlogo</table>
+                    </frshippment>
+                </entities>
+            </franceexpress_ondemandlogo_resource>
+            <sales>
+                <rewrite>
+                    <order>Franceexpress_Ondemandlogo_Model_Sales_Order</order>
+                </rewrite>
+            </sales>
+        </models>
+        <resources>
+            <franceexpress_setup>
+                <setup>
+                    <module>Franceexpress_Ondemandlogo</module>
+                    <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+               
+            </franceexpress_setup>
+            <franceexpress_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </franceexpress_write>
+            <franceexpress_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </franceexpress_read>
+        </resources>
+        
+    </global>
+    <frontend>
+        <translate>
+            <modules>
+                <franceexpress_ondemandlogo>
+                    <files>
+                        <default>Franceexpress_Ondemandlogo.csv</default>
+                    </files>
+                </franceexpress_ondemandlogo>
+            </modules>
+        </translate>
+        	
+        <events>
+            <checkout_controller_onepage_save_shipping_method>
+                <observers>
+                    <franceexpress_ondemandlogo_observer>
+                        <type>singleton</type>
+                        <class>Franceexpress_Ondemandlogo_Model_Observer</class>
+                        <method>saveShippingMethodFranceExpress</method>
+                    </franceexpress_ondemandlogo_observer>
+                </observers>
+            </checkout_controller_onepage_save_shipping_method>
+            <sales_model_service_quote_submit_after>
+                <observers>
+                    <franceexpress_ondemandlogo_observer>
+                        <type>singleton</type>
+                        <class>Franceexpress_Ondemandlogo_Model_Observer</class>
+                        <method>saveOrderAfterFranceExpress</method>
+                    </franceexpress_ondemandlogo_observer>
+                </observers>
+            </sales_model_service_quote_submit_after>
+            <sales_order_load_after>
+                <observers>
+                    <franceexpress_ondemandlogo_observer>
+                        <type>model</type>
+                        <class>Franceexpress_Ondemandlogo_Model_Observer</class>
+                        <method>loadOrderAfterFranceExpress</method>
+                    </franceexpress_ondemandlogo_observer>
+                </observers>
+            </sales_order_load_after>
+        </events>	
+        <layout>
+            <updates>
+                <franceexpress_ondemandlogo>
+                    <file>franceexpress.xml</file>
+                </franceexpress_ondemandlogo>
+            </updates>
+        </layout>
+    </frontend>
+    <!-- Default configuration -->
+    <default>
+        <carriers>
+            <franceexpress_ondemandlogo>
+                <active>1</active>
+                <model>franceexpress_ondemandlogo/carrier</model>
+                <title>Franceexpress Ondemandlogo Carrier</title>
+            </franceexpress_ondemandlogo>
+            <franceexpress_methods>
+                <!-- Mode de livraison 1 : FRANCE EXPRESS ON DEMAND premium -->
+                <method_1_active>1</method_1_active>
+                <method_1_description>Je choisirai ma demi-journée de livraison sur internet dès ma commande expédiée. Livraisons possibles du lundi au samedi matin sur une période de 14 jours. Livraisons en soirée proposées sur certaines communes. 1er créneau possible dès le lendemain matin de l’expédition.</method_1_description>
+                <franceexpress_ondemandlogo_geodis_od_expert>Je choisirai ma demi-journée de livraison sur internet dès ma commande expédiée. Livraisons possibles du lundi au samedi matin sur une période de 14 jours. Livraisons en soirée proposées sur certaines communes. 1er créneau possible dès le lendemain matin de l’expédition.</franceexpress_ondemandlogo_geodis_od_expert>
+                <method_1_price>0</method_1_price>
+                <!-- Mode de livraison 2 : FRANCE EXPRESS ON DEMAND live -->
+                <method_2_active>1</method_2_active>
+                <method_2_description>FRANCE EXPRESS me contactera par téléphone pour convenir d’un créneau horaire de livraison sur-mesure.</method_2_description>
+                <franceexpress_ondemandlogo_geodis_od_premium>FRANCE EXPRESS me contactera par téléphone pour convenir d’un créneau horaire de livraison sur-mesure.</franceexpress_ondemandlogo_geodis_od_premium>
+                <method_2_price>0</method_2_price>
+            </franceexpress_methods>
+        </carriers>
+    </default>
+    <stores>
+        <default>
+            <carriers>
+                <franceexpress_ondemandlogo>
+                    <active>1</active>
+                    <model>franceexpress_ondemandlogo/carrier</model>
+                    <title>Franceexpress Ondemandlogo Carrier</title>
+                </franceexpress_ondemandlogo>
+                <franceexpress_methods>
+                    <method_1_active>1</method_1_active>
+                    <method_1_description>I will schedule the delivery date and time online as soon as my order is shipped. Bookings available Monday to Saturday morning over a 14-day period. 1st possible slot: the morning of the day after shipping.</method_1_description>
+                    <method_1_price>0</method_1_price>
+                
+                    <method_2_active>1</method_2_active>
+                    <method_2_description>FRANCE EXPRESS  will call me to schedule a bespoke delivery appointment.</method_2_description>
+                    <method_2_price>0</method_2_price>
+                </franceexpress_methods>
+            </carriers>
+        </default>
+    </stores>
+</config>

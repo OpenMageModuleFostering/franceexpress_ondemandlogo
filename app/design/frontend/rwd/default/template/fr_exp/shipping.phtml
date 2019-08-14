@@ -1,0 +1,71 @@
+<?php
+$_code = $this->getMethodCode();
+$carrier = $this->getMethodInstance();
+$_rate = $this->getRate();
+$_method_title = $this->getMethodTitle();
+$_method_long_description = $this->getMethodLongDescription();
+$customer_country_code = $this->getCustomerCountry();
+?>
+
+<form id="geodis-form_<?php echo $_rate->getCode() ?>">
+    <div id="shipping_form_<?php echo $_rate->getCode() ?>" class="col-2-set geodis france-express" style="display:none;">
+        <h4><?php echo $this->__('I have chosen ') ?> <?php echo $_method_title; ?></h4>
+        <div class="geodis-info-content">
+        <div class="france-express-col-1 geodis-col-1">
+            <img src="<?php echo $this->getSkinUrl('images/franceexpress/' . $_rate->getCode() . '.jpg') ?>">
+        </div>
+        <div class="france-express-col-2 geodis-col-2">
+            <div class="box">
+                <ul>
+                    <li>
+                        
+                        <?php if ($_rate->getCode() == 'franceexpress_ondemandlogo_geodis_od_expert') { ?>
+                            <!-- Mode de livraison 1 : FRANCE EXPRESS ON DEMAND premium -->
+                            <div class="geodis-heading"><?php echo $this->__('Please indicate your email address and/or your mobile number.<br/>As soon as your order is shipped, FRANCE EXPRESS will send you a personal link giving you access to our online delivery booking portal.') ?></div>
+                            <div class="error_france_express error"></div>
+                            <div>
+                                <span class="geodis-label" for="<?php echo $_code ?>" class="required"><?php echo $this->__("Email ") ?></span>
+                                <span class="input-box">
+                                    <input id="email" type='text' name='<?php echo $_rate->getCode() ?>[email]' class="input-text validate-email geodis-input" value='<?php echo Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getEmail(); ?>' />
+                                </span>
+                            </div>
+                            <div>
+                                <span class="geodis-label" for="<?php echo $_code ?>" class="required"><?php echo $this->__("Mobile phone ") ?></span>
+                                <span class="input-box">
+                                    <input id="mobile" type='text' name='<?php echo $_rate->getCode() ?>[mobile]' class='input-text geodis-input <?php if($customer_country_code && $customer_country_code == 'FR') {?> validate-french-phone-ondemand-logo <?php }else{ echo 'validate-phoneLax'; } ?>' value='<?php echo Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getTelephone(); ?>' />
+                                </span>
+                            </div>
+                        <?php } else { ?>
+                            <!-- Mode de livraison 2 : FRANCE EXPRESS ON DEMAND live -->
+                            <div class="geodis-heading"><?php echo $this->__('Please indicate your phone number.<br/>FRANCE EXPRESS will call you when your order is ready for delivery.') ?></div>
+                            <div class="error_france_express error"></div>
+                            <div>
+                                <span class="geodis-label" for="<?php echo $_code ?>" class="required"><?php echo $this->__('Phone ') ?></span>
+                                <span class="input-box">
+                                    <input id="tel" type='text' name='<?php echo $_rate->getCode() ?>[phone]' class='input-text geodis-input <?php if($customer_country_code && $customer_country_code == 'FR') {?> validate-french-fixe-ondemand-logo <?php }else{ echo 'validate-phoneLax'; } ?>' value='<?php echo Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getTelephone(); ?>' />
+                                </span>
+                            </div>
+                            <div>
+                                <span class="geodis-label" for="<?php echo $_code ?>" class="required"><?php echo $this->__("Mobile phone ") ?></span>
+                                <span class="input-box">
+                                    <input id="mobile" type='text' name='<?php echo $_rate->getCode() ?>[mobile]' class='input-text geodis-input <?php if($customer_country_code && $customer_country_code == 'FR') {?> validate-french-phone-ondemand-logo <?php }else{ echo 'validate-phoneLax'; } ?>' value='<?php echo Mage::getSingleton('checkout/session')->getQuote()->getShippingAddress()->getTelephone(); ?>' />
+                                </span>
+                            </div>
+
+
+                        <?php } ?>
+                    </li>
+                </ul>
+            </div>
+        </div>
+       </div>
+    </div>
+</form>
+
+<style type="text/css">
+    @media screen and (max-width: 610px) {
+        .france-express-col-1, .france-express-col-2 {display: block!important; width:100%}
+        .geodis-col-1 img {width: 150px; margin:auto;}
+
+    }
+</style>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package>
+    <name>Franceexpress_Ondemandlogo</name>
+    <version>1.0.5</version>
+    <stability>stable</stability>
+    <license>http://opensource.org/licenses/afl-3.0.php</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Laissez &#xE0; vos clients le choix de leur date de livraison</summary>
+    <description>Int&#xE9;gration de textes et logos facilitant&#xD;
+&#xD;
+le param&#xE9;trage de votre site. Avec &#xD;
+&#xD;
+Geodis On Demand, vos clients &#xD;
+&#xD;
+b&#xE9;n&#xE9;ficient d'une gamme de &#xD;
+&#xD;
+prestations leur permettant de choisir &#xD;
+&#xD;
+partout en France, par t&#xE9;l&#xE9;phone ou &#xD;
+&#xD;
+par internet, le lieu et la date de &#xD;
+&#xD;
+livraison.</description>
+    <notes>First preview release</notes>
+    <authors><author><name>Ysance</name><user>Ysance</user><email>contact@ysance.com</email></author></authors>
+    <date>2015-09-07</date>
+    <time>13:51:43</time>
+    <contents><target name="magecommunity"><dir name="Franceexpress"><dir name="Ondemandlogo"><dir name="Block"><dir name="Sales"><dir name="Order"><dir name="View"><dir name="Tab"><file name="Info.php" hash="d044e7feb1128c849a4d003dc3626846"/></dir></dir></dir></dir><file name="Shipping.php" hash="d25e1c20b6e6a68b21bc00961fbfb5fe"/></dir><dir name="Helper"><file name="Data.php" hash="4f208d6a472213732d3fd4bc48cd2191"/></dir><dir name="Model"><file name="Carrier.php" hash="f2aec0648220e22d1ef465d4ed53b293"/><file name="Frshippment.php" hash="917cbc196dd673535274c26d8c034207"/><file name="Observer.php" hash="05e6e7a7aac3761f7f26fac68973ace4"/><dir name="Resource"><dir name="Frshippment"><file name="Collection.php" hash="64e6a649cabbaa27959dae8bd6a5e4a0"/></dir><file name="Frshippment.php" hash="15967f76b2cb231a0c90f76357d73cf5"/></dir><dir name="Sales"><file name="Order.php" hash="22b226ad6ab25cfda1aa3dd573d24ebd"/></dir></dir><dir name="etc"><file name="config.xml" hash="7ddce20c2bad410e39d119993731432f"/><file name="system.xml" hash="a6716ebb49aea917b9d3a15edad922a6"/></dir><dir name="sql"><dir name="franceexpress_setup"><file name="mysql4-install-0.1.0.php" hash="c00b69b0a582a2563e54cc445e471065"/><file name="mysql4-uninstall-0.1.0.php" hash="8f7a8f4cd4dd1c4cad631062ab4fc762"/></dir></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="rwd"><dir name="default"><dir name="layout"><file name="franceexpress.xml" hash="2ce3cdbcbd359f3fcb23df58256dd1a6"/></dir><dir name="template"><dir name="fr_exp"><dir name="checkout"><dir name="onepage"><dir name="shipping_method"><file name="available.phtml" hash="0fbbd094c36fe29b391da8e4af30ad8e"/></dir></dir></dir><file name="shipping.phtml" hash="8ee77d149adc7c9017ab695a583602a3"/></dir></dir></dir></dir><dir name="base"><dir name="default"><dir name="layout"><file name="franceexpress.xml" hash="f13dfaf83bdf69912c584ce016c42634"/></dir><dir name="template"><dir name="fr_exp"><dir name="checkout"><dir name="onepage"><dir name="shipping_method"><file name="available.phtml" hash="bf6bc31daf3be0e287ca0fe5a194588e"/></dir></dir></dir><file name="shipping.phtml" hash="c2e5e673ef17bf7eca7a6009f9fe6a02"/></dir></dir></dir></dir></dir><dir name="adminhtml"><dir name="default"><dir name="default"><dir name="layout"><file name="franceexpress_ondemandlogo.xml" hash="255bcaf3ea24f31a59ccb067ad8aa5c6"/></dir><dir name="template"><dir name="franceexpress"><dir name="sales"><dir name="order"><dir name="view"><dir name="tab"><file name="info.phtml" hash="b6983689cee67b1a95c3efc261de8034"/></dir></dir></dir></dir></dir></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Franceexpress_Ondemandlogo.xml" hash="4d3454bce3d200263df26d716d2eb221"/></dir></target><target name="magelocale"><dir name="fr_FR"><file name="Franceexpress_Ondemandlogo.csv" hash="17b7cb529962a754108beca47bd1b22c"/></dir></target><target name="mageskin"><dir name="frontend"><dir name="base"><dir name="default"><dir name="images"><dir name="franceexpress"><file name="franceexpress_ondemandlogo_geodis_od_expert.jpg" hash="40af0ce0881e7aa1f63420b8ee17148a"/><file name="franceexpress_ondemandlogo_geodis_od_premium.jpg" hash="40af0ce0881e7aa1f63420b8ee17148a"/><file name="logo.png" hash="279e89e21dc3e7bcfb620ae73d0a9ad2"/></dir></dir><dir name="css"><dir name="franceexpress"><file name="geodis.css" hash="f080cf44556712e7c21841d8da29ca5a"/></dir></dir></dir></dir><dir name="rwd"><dir name="default"><dir name="images"><dir name="franceexpress"><file name="logoFranceExpress.png" hash="fc04fb806a6e1a981e28673e87841ce5"/></dir></dir></dir></dir></dir></target><target name="mage"><dir name="js"><dir name="franceexpress"><file name="jquery-1.11.0.min.js" hash="eaec1712551cd2792f4607f39fab12e7"/><file name="no-conflict.js" hash="f10bea9c8a693484702a21f6078ceb66"/></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.3.0</min><max>5.6.0</max></php></required></dependencies>
+</package>

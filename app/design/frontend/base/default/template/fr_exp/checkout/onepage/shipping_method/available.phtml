@@ -1,0 +1,225 @@
+<?php /** @var $this Mage_Checkout_Block_Onepage_Shipping_Method_Available */ ?>
+
+<?php $_shippingRateGroups = $this->getShippingRates(); ?>
+<?php $_shippingDisponibility = Mage::helper('franceexpress_ondemandlogo')->verifyShippingDisponibility(); ?>
+<?php if (!$_shippingRateGroups): ?>
+    <p><?php echo $this->__('Sorry, no quotes are available for this order at this time.') ?></p>
+<?php else: ?>
+    <dl class="sp-methods">
+        <?php $shippingCodePrice = array(); ?>
+        <?php
+        $_sole = count($_shippingRateGroups) == 1;
+        foreach ($_shippingRateGroups as $code => $_rates):
+            ?>
+            <?php
+            $carrier = Mage::getModel('shipping/config')->getCarrierInstance($code);
+            if ($carrier->getIfFranceExpressModule()) :
+                ?>
+                <dt>
+                <img src="<?php echo $this->getSkinUrl('images/franceexpress/logo.png') ?>" style="width: 100%">
+                </dt>
+            <?php else : ?>
+                <dt><?php echo $this->escapeHtml($this->getCarrierName($code)) ?></dt>
+            <?php endif; ?>
+            <dd>
+                <ul>
+                    <?php
+                    $_sole = $_sole && count($_rates) == 1;
+                    $i = 1;
+                    foreach ($_rates as $_rate):
+                        ?>
+                        <?php $shippingCodePrice[] = "'" . $_rate->getCode() . "':" . (float) $_rate->getPrice(); ?>
+                        <li>
+                            <?php if ($_rate->getErrorMessage()): ?>
+                                <ul class="messages"><li class="error-msg"><ul><li><?php echo $this->escapeHtml($_rate->getErrorMessage()) ?></li></ul></li></ul>
+                            <?php else: ?>
+                                <?php if ($_sole) : ?>
+                                    <span class="no-display"><input name="shipping_method" type="radio" value="<?php echo $_rate->getCode() ?>" id="s_method_<?php echo $_rate->getCode() ?>" checked="checked" /></span>
+                                <?php else: ?>
+                                    <input name="shipping_method" type="radio" 
+                                           value="<?php echo $_rate->getCode() ?>" 
+                                           id="s_method_<?php echo $_rate->getCode() ?>"
+                                           <?php if ($_rate->getCode() === $this->getAddressShippingMethod() && !isset($_shippingDisponibility['s_method_' . $_rate->getCode()]) && $_shippingDisponibility['s_method_' . $_rate->getCode()] == '0') echo ' checked="checked"' ?>
+                                           <?php if (isset($_shippingDisponibility['s_method_' . $_rate->getCode()]) && $_shippingDisponibility['s_method_' . $_rate->getCode()] == '0') echo ' disabled="disabled"' ?>
+                                           class="radio"/>
+                                           <?php if ($_rate->getCode() === $this->getAddressShippingMethod()): ?>
+                                        <script type="text/javascript">
+                                            //<![CDATA[
+                                            lastPrice = <?php echo (float) $_rate->getPrice(); ?>;
+                                            //]]>
+                                        </script>
+                                    <?php endif; ?>
+
+                                <?php endif; ?>
+                                <label for="s_method_<?php echo $_rate->getCode() ?>">
+                                    <?php echo $this->escapeHtml($_rate->getMethodTitle()) ?>
+                                    <?php $_excl = $this->getShippingPrice($_rate->getPrice(), $this->helper('tax')->displayShippingPriceIncludingTax()); ?>
+                                    <?php $_incl = $this->getShippingPrice($_rate->getPrice(), true); ?>
+                                    <?php echo $_excl; ?>
+                                    <?php if ($this->helper('tax')->displayShippingBothPrices() && $_incl != $_excl): ?>
+                                        (<?php echo $this->__('Incl. Tax'); ?> <?php echo $_incl; ?>)
+                                    <?php endif; ?>
+                                    <div><?php echo $this->escapeHtml($_rate->getMethodDescription()) ?></div>
+                                    <?php if (isset($_shippingDisponibility['s_method_' . $_rate->getCode()]) && ($_shippingDisponibility['s_method_' . $_rate->getCode()] == '0')) : ?>
+                                        <div id="s_method_<?php echo $_rate->getCode() ?>_error" class="validation-advice">
+                                            <?php echo $this->__('Your cart does not fulfill the conditions required for this mode'); ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </label>
+                                <?php
+                                if ($carrier->getIfFranceExpressModule()) :
+                                    $block = $this->getLayout()->createBlock('Franceexpress_Ondemandlogo_Block_Shipping');
+                                    $block->setMethodCode($code);
+                                    $block->setRate($_rate);
+                                    $block->setMethodInstance($carrier);
+                                    $block->setMethodTitle($_rate->getMethodTitle());
+                                    $block->setMethodLongDescription(Mage::getStoreConfig('carriers/franceexpress_methods/' . $_rate->getCode()));
+                                    $block->setCustomerCountry(Mage::helper('franceexpress_ondemandlogo')->getCustomerCountry());
+                                    echo $block->_toHtml();
+                                endif;
+                                ?>
+                            <?php endif; ?>
+                        </li>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </ul>
+            </dd>
+        <?php endforeach; ?>
+    </dl>
+    <script type="text/javascript">
+
+        ShippingMethod.prototype.validate = ShippingMethod.prototype.validate.wrap(function () {
+            hideAllError();
+            var id_geodis_method = jQuery("input[name=shipping_method]:checked").attr("id");
+            params = {};
+            jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('input').each(function () {
+                var name = jQuery(this).attr('id');
+                var value = jQuery(this).val();
+                params[name] = value;
+            });
+            var error = false;
+            var error_msg = '';
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var mobile_regex = /^(06|07|6|7)([-\/. ]?[0-9]{2}){4}$/;
+            var fixe_regex = /^(01|1|02|2|03|3|04|4|05|5|09)([-\/. ]?[0-9]{2}){4}$/;
+
+            if (typeof params.email !== 'undefined') {
+                if (params.email != '') {
+                    if (!params.email.match(mailformat)) {
+                        jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('#email').after('<div class="advice-required-entry"><?php echo $this->__('Please enter a valid email address. For example johndoe@domain.com.'); ?></div>');
+                        error = true;
+                    }
+                }
+            }
+            if (typeof params.mobile !== 'undefined') {
+                if (params.mobile != '') {
+                    if (!params.mobile.match(mobile_regex)) {
+                        jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('#mobile').after('<div class="advice-required-entry"><?php echo $this->__('Please provide a valid phone number'); ?></div>');
+                        error = true;
+                    }
+                }
+            }
+            if (typeof params.tel !== 'undefined') {
+                if (params.tel != '') {
+                    if (!params.tel.match(fixe_regex)) {
+                        jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('#tel').after('<div class="advice-required-entry"><?php echo $this->__('Please provide a valid phone number'); ?></div>');
+                        error = true;
+                    }
+                }
+            }
+
+            if (id_geodis_method == 's_method_franceexpress_ondemandlogo_geodis_od_expert') {
+                if (params.email == '' && params.mobile == '') {
+                    jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('.error').after('<div class="advice-required-entry"><?php echo $this->__('Please provide at least an email address or a phone number'); ?></div>');
+                    error = true;
+                }
+            } else if (id_geodis_method == 's_method_franceexpress_ondemandlogo_geodis_od_premium') {
+                if (params.mobile == '' && params.tel == '') {
+                    jQuery("input[name=shipping_method]:checked").parent('li').find('.geodis-col-2').find('.error').after('<div class="advice-required-entry"><?php echo $this->__('Please provide at least one phone number'); ?></div>');
+                    error = true;
+                }
+            }
+            if (error) {
+                return false;
+            }
+
+            // return false;
+            var methods = document.getElementsByName('shipping_method');
+            if (methods.length == 0) {
+                alert(Translator.translate('Your order cannot be completed at this time as there is no shipping methods available for it. Please make necessary changes in your shipping address.').stripTags());
+                return false;
+            }
+
+            if (!this.validator.validate()) {
+                return false;
+            }
+
+            for (var i = 0; i < methods.length; i++) {
+                if (methods[i].checked) {
+                    return true;
+                }
+            }
+            alert(Translator.translate('Please specify shipping method.').stripTags());
+            return false;
+        });
+
+        jQuery(document).ready(function () {
+            hideShippingAll();
+            jQuery('input[type="radio"][name="shipping_method"]').click(function () {
+                hideShippingAll();
+                var code = jQuery(this).val();
+                if (jQuery(this).is(':checked')) {
+                    showShipping(code);
+                }
+            });
+            jQuery('input[type="radio"][name="shipping_method"]').each(function () {
+                var code = jQuery(this).val();
+                if (jQuery(this).is(":checked")) {
+                    showShipping(code);
+                }
+            });
+        });
+        function showShipping(code) {
+            if (jQuery('#' + 'shipping_form_' + code).length != 0) {
+                hideAllError();
+                jQuery('#' + 'shipping_form_' + code).show();
+            }
+        }
+        function hideShippingAll() {
+            jQuery('input[type="radio"][name="shipping_method"]').each(function () {
+                var code = jQuery(this).val();
+                jQuery('#' + 'shipping_form_' + code).hide();
+            });
+        }
+        function hideAllError() {
+            jQuery('.advice-required-entry').hide();
+        }
+
+    <?php if (!empty($shippingCodePrice)): ?>
+            var shippingCodePrice = {<?php echo implode(',', $shippingCodePrice); ?>};
+    <?php endif; ?>
+
+        $$('input[type="radio"][name="shipping_method"]').each(function (el) {
+            Event.observe(el, 'click', function () {
+                if (el.checked == true) {
+                    var getShippingCode = el.getValue();
+    <?php if (!empty($shippingCodePrice)): ?>
+                        var newPrice = shippingCodePrice[getShippingCode];
+                        if (!lastPrice) {
+                            lastPrice = newPrice;
+                            quoteBaseGrandTotal += newPrice;
+                        }
+                        if (newPrice != lastPrice) {
+                            quoteBaseGrandTotal += (newPrice - lastPrice);
+                            lastPrice = newPrice;
+                        }
+    <?php endif; ?>
+                    checkQuoteBaseGrandTotal = quoteBaseGrandTotal;
+                    return false;
+                }
+            });
+        });
+
+        //]]>
+    </script>
+<?php endif; ?>
