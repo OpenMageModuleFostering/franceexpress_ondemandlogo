@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Franceexpress_Ondemandlogo",
+    "name": "OpenMageModuleFostering\/Franceexpress_Ondemandlogo",
     "type": "magento-module",
-    "license": "http://opensource.org/licenses/afl-3.0.php",
+    "license": "http:\/\/opensource.org\/licenses\/afl-3.0.php",
     "homepage": "",
-    "description": "Laissez à vos clients le choix de leur date de livraison",
+    "description": "Laissez \u00e0 vos clients le choix de leur date de livraison",
     "authors": [
-    {
-        "name": "Ysance",
-        "email": "contact@ysance.com"
-    }
-],
+        {
+            "name": "Ysance",
+            "email": "contact@ysance.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
